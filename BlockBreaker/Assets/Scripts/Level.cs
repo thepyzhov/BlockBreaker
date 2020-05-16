@@ -6,8 +6,22 @@ public class Level : MonoBehaviour
 {
     int breakableBlocks;
 
-    public void CountBreakableBlocks() {
+    // Cached reference
+    SceneLoader sceneLoader;
+
+    void Start() {
+        sceneLoader = FindObjectOfType<SceneLoader>();
+    }
+
+    public void CountBlocks() {
         breakableBlocks += 1;
-        Debug.Log("Breakable blocks: " + breakableBlocks);
+    }
+
+    public void BlockDestroyed() {
+        breakableBlocks -= 1;
+
+        if (breakableBlocks <= 0) {
+            sceneLoader.LoadNextScene();
+        }
     }
 }
